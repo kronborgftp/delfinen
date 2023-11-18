@@ -1,7 +1,11 @@
+import clubmanagement.*;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInterface {
     private Scanner scanner;
+    Controller controller = new Controller();
 
     public UserInterface() {
         this.scanner = new Scanner(System.in);
@@ -17,11 +21,22 @@ public class UserInterface {
             switch (choice) {
                 case 1:
                     // Add new member
-                    // ...
+                    Person newMember = createNewMember();
+                    Membership newMembership = new Membership(newMember, LocalDate.now());
+                    // Add newMembership to your data structure (e.g., a list or map)
+                    System.out.println("New member added successfully!");
                     break;
+
                 case 2:
                     // Process contingent and display total
+                    Person member = createNewMember(); // Assume you get a member for whom you want to process the contingent
+                    Membership membership = new Membership(member, LocalDate.now());
+                    Contingent contingent = new Contingent(membership);
+
+                    // Add contingent to your data structure (e.g., a list or map) if needed
                     // ...
+
+                    System.out.println("Contingent processed successfully. Total amount: " + contingent.getAmount());
                     break;
                 case 3:
                     // Display members in arrears
@@ -52,6 +67,23 @@ public class UserInterface {
         System.out.println("Exiting the program. Thank you!");
     }
 
+    private Person createNewMember() {
+        System.out.print("Enter member name: ");
+        String name = scanner.next();
+
+        System.out.print("Enter member age: ");
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a valid age.");
+            scanner.next(); // consume invalid input
+        }
+        int age = scanner.nextInt();
+
+        // Additional prompts for activity type, member type, etc.
+        // ...
+
+        return new Person(name, age, ActivityType.ACTIVE, MemberType.SENIOR);
+    }
+
     private void displayMenu() {
         System.out.println("===== Svømmeklubben Delfinen =====");
         System.out.println("1. Add New Member");
@@ -72,4 +104,3 @@ public class UserInterface {
         return scanner.nextInt();
     }
 }
-

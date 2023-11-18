@@ -1,4 +1,8 @@
 package trainersystem;
 
-public class SwimDiscipline {
+public enum SwimDiscipline {
+    BUTTERFLY,
+    CRAWL,
+    RYGCRAWL,
+    BRYSTSVØMNING
 }
